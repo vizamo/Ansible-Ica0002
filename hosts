@@ -1,4 +1,4 @@
-vizamo-1 ansible_host=193.40.156.86 ansible_port=12822 ansible_ssh_user=ubuntu
+vizamo-1 ansible_host=193.40.156.86 ansible_port=7222 ansible_ssh_user=ubuntu
 
 [web_servers]
 vizamo-1
