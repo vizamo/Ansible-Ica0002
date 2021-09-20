@@ -11,5 +11,16 @@
     ansible.builtin.copy:
       src: files/index.html
       dest: /var/www/html/index.nginx-debian.html
-
-      
+    notify: Restart Nginx
+    
+  - name: Replace default file
+    ansible.builtin.copy:
+      src: files/default
+      dest: /etc/nginx/sites-enabled/default
+    notify: Restart Nginx    
+    
+  - name: Check Nginx is started and enabled
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
