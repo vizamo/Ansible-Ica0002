@@ -1,21 +1,17 @@
 ---
-  - name: Apt-get update
-    ansible.builtin.apt:
-      update-cache: yes
-      
   - name: Install Nginx
     ansible.builtin.apt:
       name: nginx
 
   - name: Replace index.html
     ansible.builtin.copy:
-      src: files/index.html
+      src: index.html
       dest: /var/www/html/index.nginx-debian.html
     notify: Restart Nginx
     
   - name: Replace default file
     ansible.builtin.copy:
-      src: files/default
+      src: default
       dest: /etc/nginx/sites-enabled/default
     notify: Restart Nginx    
     

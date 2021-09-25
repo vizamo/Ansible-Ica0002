@@ -1,0 +1,35 @@
+---
+  - name: Install Mysql server
+    ansible.builtin.apt:
+      name: mysql-server
+      
+  - name: Install PyMySql
+    ansible.builtin.apt:
+      name: python3-pymysql
+      
+  - name: Check does Mysql server is started and enabled
+    ansible.builtin.service:
+      name: mysql
+      state: started
+      enabled: yes
+      
+  - name: Change MySql configuration, add new bind-address
+    ansible.builtin.copy:
+      src: override.cnf
+      dest: /etc/mysql/mysql.conf.d/
+    notify: Restart MySql   
+          
+  - name: MySql Database
+    community.mysql.mysql_db:
+      name: "{{ mysql_database }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+                
+  - name: Create MySql DB user
+    community.mysql.mysql_user:
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+      host: "%"
+      priv: "{{ mysql_database }}.*:ALL"
+      
+
