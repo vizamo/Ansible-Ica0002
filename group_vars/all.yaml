@@ -1,5 +1,4 @@
 ---
-mysql_host: 192.168.42.105
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -9,3 +8,15 @@ mysql_password: !vault |
           66626132363161646164326231343632303138383031396262343132316433353263353131636661
           3738346433616330620a313538333761633662383965383335363939373463326432363338616263
           6537
+mysql_bind_addr: 0.0.0.0
+route: 
+  - 1.1.1.1
+  - 8.8.8.8
+  - 9.9.9.9
+  - 9.9.9.10
+dns_startup_name: rlt.vizamo
+dns_startup_user: vitali
+dns_startup_db_file: db.rlt.j2
+access_networks:
+  - 192.168.42.0/24
+  - 127.0.0.0/8

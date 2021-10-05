@@ -8,20 +8,6 @@
     roles:
       - init
       
-  - name: Database servers
-    hosts: db_servers
-    become: yes
-    roles:
-      - mysql
-      
-  - name: Web servers
-    hosts: web_servers
-    become: yes
-    roles:
-      - agama
-      - uwsgi
-      - nginx
-
   - name: DNS Server
     hosts: dns_servers
     become: yes

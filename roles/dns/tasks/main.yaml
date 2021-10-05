@@ -1,0 +1,14 @@
+---
+  - name: Stop systemd-resolved
+    ansible.builtin.shell:
+      cmd: ls -l /etc/resolv.conf
+
+  - name: Remove resolv.conf
+    ansible.builtin.file:
+      state: absent
+      dest: /etc/resolv.conf
+
+  - name: Add new resolv.conf
+    ansible.builtin.template:
+      src: resolv.conf.j2
+      dest: /etc/resolv.conf

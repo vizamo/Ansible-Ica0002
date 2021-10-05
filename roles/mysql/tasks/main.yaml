@@ -14,7 +14,7 @@
       enabled: yes
       
   - name: Change MySql configuration, add new bind-address
-    ansible.builtin.copy:
+    ansible.builtin.template:
       src: override.cnf
       dest: /etc/mysql/mysql.conf.d/
     notify: Restart MySql   

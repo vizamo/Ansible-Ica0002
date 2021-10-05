@@ -1,0 +1,10 @@
+---
+   - name: Restart Bind
+     ansible.builtin.service:
+       name: bind9
+       state: restarted
+      
+   - name: Refresh DNS Master Zone
+     ansible.builtin.shell:
+       cmd: rndc reload
+

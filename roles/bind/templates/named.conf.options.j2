@@ -1,0 +1,23 @@
+acl infrastructure_net { 
+	{% for net in access_networks -%}
+	{{ net }}; 
+	{% endfor -%}
+};
+
+options {
+	directory "/var/cache/bind";
+
+	forwarders {
+		{% for r in route -%}
+		{{ r }}; 
+		{% endfor -%}
+	};
+
+	dnssec-validation auto;	
+	
+	allow-query { 
+		infrastructure_net; 
+	};
+
+};
+
