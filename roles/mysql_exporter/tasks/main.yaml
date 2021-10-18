@@ -1,0 +1,25 @@
+---
+  - name: Install Prometheus Mysql Exporter
+    ansible.builtin.apt:
+      name: prometheus-mysqld-exporter  
+      
+  - name: Config for Prometheus Mysql Exporter
+    ansible.builtin.template:
+      src: .my.cnf.j2
+      dest: /var/lib/prometheus/.my.cnf
+    notify: Restart MySql Exporter
+               
+  - name: Create MySql Exporter user
+    community.mysql.mysql_user:
+      name: "{{ mysql_node_exproter_user }}"
+      password: "{{ mysql_node_exproter_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+      priv: 
+        '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
+    notify: Restart MySql Exporter
+    
+  - name: Check Prometheus Mysql Exporter is started and enabled
+    ansible.builtin.service:
+      name: prometheus-mysqld-exporter
+      state: started
+      enabled: yes

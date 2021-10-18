@@ -2,18 +2,13 @@
   - name: Install Bind9
     ansible.builtin.apt:
       name: bind9
-    
-  - name: Check Bind9 is started and enabled
-    ansible.builtin.service:
-      name: bind9
-      state: started
-      enabled: yes
-      
+          
   - name: Change Bind9 config with adding forwarders
     ansible.builtin.template:
       src: named.conf.options.j2
       dest: /etc/bind/named.conf.options 
-    notify: Restart Bind
+    notify: 
+      - Restart Bind
     
   - name: Add information about master zone
     ansible.builtin.template:
@@ -25,4 +20,10 @@
     ansible.builtin.template:
       src: named.conf.local.j2
       dest: /etc/bind/named.conf.local 
-    notify: Restart Bind   
+    notify: Restart Bind  
+    
+  - name: Check Bind9 is started and enabled
+    ansible.builtin.service:
+      name: bind9
+      state: started
+      enabled: yes

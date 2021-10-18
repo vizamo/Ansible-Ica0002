@@ -20,6 +20,11 @@
     roles:
       - agama
       - uwsgi
+
+  - name: Nginx servers
+    hosts: nginx_servers
+    become: yes
+    roles:
       - nginx
 
   - name: DNS Server
@@ -33,3 +38,44 @@
     become: yes
     roles:
       - dns
+ 
+  - name: Prometheus
+    hosts: prometheus_servers
+    become: yes
+    roles:
+      - prometheus
+    tags:
+      - p
+ 
+  - name: Node Exporter
+    hosts: all
+    become: yes
+    roles:
+      - node_exporter
+           
+  - name: DNS Server Exporter
+    hosts: dns_servers
+    become: yes
+    roles:
+      - bind_exporter  
+      
+  - name: Database servers Exporter
+    hosts: db_servers
+    become: yes
+    roles:
+      - mysql_exporter 
+      
+  - name: Nginx servers Exporter
+    hosts: nginx_servers
+    become: yes
+    roles:
+      - nginx_exporter
+      
+  - name: Grafana
+    hosts: grafana_servers
+    become: yes
+    roles:
+      - grafana
+    tags:
+      - g
+

@@ -6,15 +6,16 @@
   - name: Install Uwsgi python plugin
     ansible.builtin.apt:
       name: uwsgi-plugin-python3
-   
-  - name: Add agama.ini
-    ansible.builtin.template:
-      src: agama.ini.j2
-      dest: /etc/uwsgi/apps-enabled/agama.ini
-    notify: Restart Uwsgi
- 
+
   - name: Check Uwsgi is started and enabled
     ansible.builtin.service:
       name: uwsgi
       state: started
       enabled: yes
+         
+  - name: Add agama.ini
+    ansible.builtin.template:
+      src: agama.ini.j2
+      dest: /etc/uwsgi/apps-enabled/agama.ini
+    notify: Restart Uwsgi
+

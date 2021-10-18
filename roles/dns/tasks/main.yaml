@@ -1,12 +1,9 @@
----
-  - name: Stop systemd-resolved
-    ansible.builtin.shell:
-      cmd: ls -l /etc/resolv.conf
-
-  - name: Remove resolv.conf
-    ansible.builtin.file:
-      state: absent
-      dest: /etc/resolv.conf
+---    
+  - name: Check Prometheus Bind Exporter is started and enabled
+    ansible.builtin.service:
+      name: systemd-resolved
+      state: stopped
+      enabled: no
 
   - name: Add new resolv.conf
     ansible.builtin.template:

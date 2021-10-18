@@ -1,0 +1,10 @@
+---
+  - name: Install Prometheus Bind Exporter
+    ansible.builtin.apt:
+      name: prometheus-bind-exporter
+    
+  - name: Check Prometheus Bind Exporter is started and enabled
+    ansible.builtin.service:
+      name: prometheus-bind-exporter
+      state: started
+      enabled: yes

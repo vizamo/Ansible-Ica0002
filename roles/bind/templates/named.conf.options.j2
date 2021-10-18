@@ -18,6 +18,9 @@ options {
 	allow-query { 
 		infrastructure_net; 
 	};
-
+	
 };
 
+statistics-channels {
+  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
+};

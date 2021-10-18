@@ -7,4 +7,3 @@
    - name: Refresh DNS Master Zone
      ansible.builtin.shell:
        cmd: rndc reload
-

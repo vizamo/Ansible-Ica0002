@@ -1,5 +1,5 @@
-vizamo-1 ansible_port=6922
-vizamo-2 ansible_port=9422 
+vizamo-1 ansible_port=17222
+vizamo-2 ansible_port=11122
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -14,5 +14,12 @@ vizamo-2
 [web_servers]
 vizamo-1
 
+[nginx_servers]
+vizamo-1
+vizamo-2
+
 [prometheus_servers]
 vizamo-1
+
+[grafana_servers]
+vizamo-2

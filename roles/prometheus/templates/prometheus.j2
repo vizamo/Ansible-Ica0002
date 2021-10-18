@@ -1,8 +1,5 @@
-# Set the command-line arguments to pass to the server.
 ARGS="
 {% for vm in groups['prometheus_servers'] %}
---web.external-url=http://{{ hostvars[vm]['ansible_host'] }}:{{ hostvars[vm]['ansible_port'] }}/prometheus
+--web.external-url=http://{{ hostvars[vm]['ansible_host'] }}:{{ hostvars[vm]['ansible_port']+58}}/prometheus
 {% endfor %}
 "
-
-

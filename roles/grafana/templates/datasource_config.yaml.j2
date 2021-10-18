@@ -1,0 +1,30 @@
+---
+# # config file version
+apiVersion: 1
+
+datasources:
+#   # <string, required> name of the datasource. Required
+ - name: Prometheus
+#   # <string, required> datasource type. Required
+   type: prometheus
+#   # <string, required> access mode. direct or proxy. Required
+   access: proxy
+#   # <int> org id. will default to orgId 1 if not specified
+   orgId: 1
+#   # <string> url
+{% for vm in groups['prometheus_servers'] %}
+   url: http://{{ vm }}:9090/prometheus
+{% endfor %}
+#   # <string> database password, if used
+   password:
+#   # <string> database user, if used
+   user:
+#   # <string> database name, if used
+   database:
+#   # <bool> enable/disable basic auth
+   isDefault: true
+#   # <map> fields that will be converted to json and stored in json_data
+   version: 1
+#   # <bool> allow users to edit datasources from the UI.
+   editable: false
+
