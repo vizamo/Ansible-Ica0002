@@ -26,6 +26,8 @@
     become: yes
     roles:
       - nginx
+    tags:
+      - n
 
   - name: DNS Server
     hosts: dns_servers
@@ -78,4 +80,37 @@
       - grafana
     tags:
       - g
+      
+  - name: Influxdb
+    hosts: influxdb_servers
+    become: yes
+    roles:
+      - influxdb
+    tags:
+      - i
+      
+  - name: Pinger
+    hosts: pinger_servers
+    become: yes
+    roles:
+      - pinger
+    tags:
+      - pi
+      
+  - name: Rsyslog
+    hosts: rsyslog_servers
+    become: yes
+    roles:
+      - rsyslog
+    tags:
+      - rl
+      
+  - name: Influxdb Exporter
+    hosts: influxdb_servers
+    become: yes
+    roles:
+      - influxdb_exporter
+    tags:
+      - ie
+
 

@@ -1,15 +1,12 @@
----
-      
-   - name: Update APT Cashe
-     ansible.builtin.apt:
-       cache_valid_time: 86400
-       
-   - name: Change def pass
-     ansible.builtin.shell:
-       cmd: grafana-cli {{ grafana_user }} reset-admin-password {{ grafana_password }}
-       
+--- 
    - name: Restart Grafana
      ansible.builtin.service:
       name: grafana-server
       state: restarted
+            
+   - name: Change def pass
+     ansible.builtin.shell:
+       sleep: 30
+       cmd: grafana-cli {{ grafana_user }} reset-admin-password {{ grafana_password }}
+
 

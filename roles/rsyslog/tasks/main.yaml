@@ -1,0 +1,12 @@
+---
+  - name: Check Rsyslog is started and enabled
+    ansible.builtin.service:
+      name: rsyslog
+      state: started
+      enabled: yes
+      
+  - name: Config for rsyslog
+    ansible.builtin.template:
+      src: rsyslog.config.j2
+      dest: /etc/rsyslog.d/50-telegraf.conf
+    notify: Restart Rsyslog

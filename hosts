@@ -1,5 +1,5 @@
-vizamo-1 ansible_port=17222
-vizamo-2 ansible_port=11122
+vizamo-1 ansible_port=13422
+vizamo-2 ansible_port=14622
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -23,3 +23,14 @@ vizamo-1
 
 [grafana_servers]
 vizamo-2
+
+[influxdb_servers]
+vizamo-1
+
+[pinger_servers]
+vizamo-1
+
+[rsyslog_servers]
+vizamo-1
+vizamo-2
+

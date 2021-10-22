@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus exporter for InfluxDB stats, as reported by a SHOW STATS query.
+Documentation=https://github.com/carlpett/influxdb_stats_exporter
+After=network-online.target
+
+[Service]
+User=prometheus
+ExecStart=/usr/local/bin/prometheus-influxdb-stats-exporter
+
+[Install]
+WantedBy=multi-user.target
+

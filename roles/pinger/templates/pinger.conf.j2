@@ -1,0 +1,5 @@
+{% for vm in groups['pinger_servers'] -%}
+database_url=http://{{ vm }}:8086
+{% endfor -%}
+database_name=latency
+targets=youtube.com,taltech.ee,facebook.com

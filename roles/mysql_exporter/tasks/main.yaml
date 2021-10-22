@@ -1,7 +1,8 @@
 ---
   - name: Install Prometheus Mysql Exporter
     ansible.builtin.apt:
-      name: prometheus-mysqld-exporter  
+      name: prometheus-mysqld-exporter 
+    register: prom_exporter_installed 
       
   - name: Config for Prometheus Mysql Exporter
     ansible.builtin.template:
@@ -17,6 +18,12 @@
       priv: 
         '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
     notify: Restart MySql Exporter
+    no_log: true
+    
+  - name: Pause 10 sec
+    pause:
+      seconds: 10
+    when: prom_exporter_installed.changed 
     
   - name: Check Prometheus Mysql Exporter is started and enabled
     ansible.builtin.service:

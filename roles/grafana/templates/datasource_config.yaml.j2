@@ -27,4 +27,32 @@ datasources:
    version: 1
 #   # <bool> allow users to edit datasources from the UI.
    editable: false
+   
+ - name: Influxdb-latency
+   type: influxdb
+   access: proxy
+   orgId: 1
+{% for vm in groups['influxdb_servers'] %}
+   url: http://{{ vm }}:8086
+{% endfor %}
+   password:
+   user:
+   database: latency
+   isDefault: false
+   version: 1
+   editable: false
+   
+ - name: Influxdb-telegraf
+   type: influxdb
+   access: proxy
+   orgId: 1
+{% for vm in groups['influxdb_servers'] %}
+   url: http://{{ vm }}:8086
+{% endfor %}
+   password:
+   user:
+   database: telegraf
+   isDefault: false
+   version: 1
+   editable: false
 
