@@ -1,5 +1,5 @@
-vizamo-1 ansible_port=1322
-vizamo-2 ansible_port=10922
+vizamo-1 ansible_port=8722
+vizamo-2 ansible_port=17722
 
 [all:vars]
 ansible_host=193.40.156.86
