@@ -13,7 +13,7 @@
   - name: Add information about master zone
     ansible.builtin.template:
       src: db.rlt.j2
-      dest: /var/cache/bind
+      dest: /var/cache/bind/db.rlt
     notify: Refresh DNS Master Zone
      
   - name: Change Bind9 config with adding master zone

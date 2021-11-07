@@ -16,7 +16,7 @@ route:
   - 9.9.9.10
 dns_startup_name: rlt.vizamo
 dns_startup_user: vitali
-dns_startup_db_file: db.rlt.j2
+dns_startup_db_file: db.rlt
 access_networks:
   - 192.168.42.0/24
   - 127.0.0.0/8
@@ -36,4 +36,7 @@ grafana_password:  !vault |
           35336338653766636464623538326631643738353061393064636335326537656636356138333531
           3135643330306337310a616161393333396437613336346132663832623165396564313932633232
           6662
+backup_server: 192.168.42.156
+backup_user: backup
+backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
 

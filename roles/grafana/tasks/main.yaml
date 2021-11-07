@@ -22,7 +22,9 @@
       name: grafana-server
       state: started
       enabled: yes
-    notify: Change def pass
+    notify: 
+      - Restart Grafana
+      - Change def pass
       
   - name: Datasource config for grafana
     ansible.builtin.template:

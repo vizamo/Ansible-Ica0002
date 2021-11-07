@@ -1,0 +1,32 @@
+---
+  - name: Create a backup directory if it does not exist
+    ansible.builtin.file:
+      path: /home/backup/mysql
+      state: directory
+      owner: 'backup'
+      mode: 0755
+      
+  - name: Create MySql DB user
+    community.mysql.mysql_user:
+      name: "{{ backup_user }}"
+      password: "{{ mysql_node_exproter_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+      priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
+        
+  - name: Config for Backup
+    ansible.builtin.template:
+      src: conf.cnf.j2
+      dest: /home/backup/.my.cnf
+      owner: 'backup'
+      mode: 0700
+      
+  - name: Config for CronTab
+    ansible.builtin.template:
+      src: cron.j2
+      dest: /etc/cron.d/mysql-backup
+      
+      
+
+
+      
+

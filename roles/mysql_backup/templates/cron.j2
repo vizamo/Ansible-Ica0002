@@ -1,0 +1,4 @@
+25 1 * * 1  backup  mysqldump agama > /home/backup/mysql/agama.sql
+25 1 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/
+25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/
+

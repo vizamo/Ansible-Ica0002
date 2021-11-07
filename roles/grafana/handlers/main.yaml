@@ -1,12 +1,13 @@
---- 
+---     
+   - name: Change def pass
+     shell: |
+       sleep 15
+       grafana-cli {{ grafana_user }} reset-admin-password {{ grafana_password }}
+        
    - name: Restart Grafana
      ansible.builtin.service:
       name: grafana-server
       state: restarted
-            
-   - name: Change def pass
-     ansible.builtin.shell:
-       sleep: 30
-       cmd: grafana-cli {{ grafana_user }} reset-admin-password {{ grafana_password }}
+
 
 

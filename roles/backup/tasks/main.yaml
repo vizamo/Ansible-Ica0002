@@ -1,0 +1,28 @@
+---
+  - name: Add Backup User
+    ansible.builtin.user:
+      name: backup
+      home: /home/backup
+      generate_ssh_key: yes
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/id_rsa
+      
+  - name: Create a backup restore directory if it does not exist
+    ansible.builtin.file:
+      path: /home/backup/restore
+      state: directory
+      owner: 'backup'
+      mode: 0755
+      
+  - name: Install Duplicity
+    ansible.builtin.apt:
+      name: duplicity
+      
+  - name: Add acception and verification for ssh connection
+    ansible.builtin.template:
+      src: known_hosts.j2
+      dest: /home/backup/.ssh/known_hosts
+      owner: 'backup'
+      mode: 0777
+      
+      

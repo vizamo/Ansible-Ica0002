@@ -1,0 +1,3 @@
+25 1 * * 1  backup  rm -rf /home/backup/influxdb/*; influxd backup -database telegraf /home/backup/influxdb
+25 1 * * 1  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/
+25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/

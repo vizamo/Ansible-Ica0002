@@ -1,5 +1,5 @@
-vizamo-1 ansible_port=13422
-vizamo-2 ansible_port=14622
+vizamo-1 ansible_port=1322
+vizamo-2 ansible_port=10922
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -31,6 +31,10 @@ vizamo-1
 vizamo-1
 
 [rsyslog_servers]
+vizamo-1
+vizamo-2
+
+[backup_servers]
 vizamo-1
 vizamo-2
 

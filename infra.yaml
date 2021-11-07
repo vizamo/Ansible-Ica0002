@@ -7,12 +7,14 @@
       - setup:
     roles:
       - init
+      - backup
       
   - name: Database servers
     hosts: db_servers
     become: yes
     roles:
       - mysql
+      - mysql_backup
       
   - name: Web servers
     hosts: web_servers
@@ -86,6 +88,7 @@
     become: yes
     roles:
       - influxdb
+      - influxdb_backup
     tags:
       - i
       
