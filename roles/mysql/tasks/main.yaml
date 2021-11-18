@@ -31,7 +31,39 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "{{ mysql_database }}.*:ALL"
-
+                
+  - name: Create MySql replication user
+    community.mysql.mysql_user:
+      name: "{{ mysql_replication_user }}"
+      password: "{{ mysql_replication_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+      host: "%"
+      priv: "*.*:REPLICATION SLAVE"
+      
+  - name: run handlers now
+    meta: flush_handlers
+              
+  - name: Read only mode for slave host     
+    community.mysql.mysql_variables:
+      variable: read_only
+      value: 'ON'
+      mode: persist
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: inventory_hostname != mysql_source_host
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica
+      
+  - name: Read write mode for source host     
+    community.mysql.mysql_variables:
+      variable: read_only
+      value: 'OFF'
+      mode: persist
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: inventory_hostname == mysql_source_host
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica
 
       
 
