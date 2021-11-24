@@ -1,5 +1,5 @@
 ---    
-  - name: Check Prometheus Bind Exporter is started and enabled
+  - name: Check systemd-resolved is stopped and disabled
     ansible.builtin.service:
       name: systemd-resolved
       state: stopped

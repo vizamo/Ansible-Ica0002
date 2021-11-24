@@ -8,39 +8,39 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "operator": "",
-              "text": "UP",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "operator": "",
-              "text": "DOWN",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -73,12 +73,213 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
+          "fields": "",
           "values": false
-        }
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "haproxy_up",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Haproxy Status",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "haproxy_server_up",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Haproxy Servers",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 7,
+        "y": 9
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "keepalived_vrrp_state",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "KeepAlived",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.5",
       "targets": [
         {
           "expr": "influxdb_exporter_stats_query_success",
@@ -101,7 +302,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -111,10 +312,10 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 17
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 18,
       "legend": {
         "avg": false,
         "current": false,
@@ -128,9 +329,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -195,7 +397,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -205,7 +407,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 16,
@@ -222,9 +424,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -285,25 +488,17 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "operator": "",
-              "text": "UP",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "operator": "",
-              "text": "DOWN",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -326,7 +521,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 26
       },
       "id": 15,
       "options": {
@@ -336,15 +531,20 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
+          "fields": "",
           "values": false
-        }
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
+          "exemplar": true,
           "expr": "nginx_up",
+          "format": "time_series",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -364,7 +564,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -374,7 +574,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 33
       },
       "hiddenSeries": false,
       "id": 12,
@@ -391,9 +591,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -454,25 +655,17 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "operator": "",
-              "text": "UP",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "operator": "",
-              "text": "DOWN",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -495,7 +688,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 18
+        "y": 35
       },
       "id": 9,
       "options": {
@@ -505,15 +698,20 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
+          "fields": "",
           "values": false
-        }
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
+          "exemplar": true,
           "expr": "mysql_up",
+          "format": "time_series",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -533,7 +731,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -543,7 +741,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 24
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 10,
@@ -560,9 +758,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -623,25 +822,17 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 0,
-              "operator": "",
-              "text": "UP",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "operator": "",
-              "text": "DOWN",
-              "to": "",
-              "type": 1,
-              "value": "0"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -664,7 +855,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 44
       },
       "id": 2,
       "options": {
@@ -674,15 +865,20 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
+          "fields": "",
           "values": false
-        }
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "8.2.5",
       "targets": [
         {
+          "exemplar": true,
           "expr": "bind_up",
+          "format": "time_series",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -702,7 +898,7 @@
       "datasource": "Influxdb-latency",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -712,7 +908,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 49
       },
       "hiddenSeries": false,
       "id": 14,
@@ -729,9 +925,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -832,7 +1029,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -842,7 +1039,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 53
       },
       "hiddenSeries": false,
       "id": 6,
@@ -859,9 +1056,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -926,7 +1124,7 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "links": []
         },
         "overrides": []
       },
@@ -936,7 +1134,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 57
       },
       "hiddenSeries": false,
       "id": 4,
@@ -953,9 +1151,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "8.2.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1013,7 +1212,7 @@
       }
     }
   ],
-  "schemaVersion": 25,
+  "schemaVersion": 32,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1039,5 +1238,5 @@
   "timezone": "",
   "title": "Cluster",
   "uid": "M4iojzOnk",
-  "version": 8
+  "version": 3
 }

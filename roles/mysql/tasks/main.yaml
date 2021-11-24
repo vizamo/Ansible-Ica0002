@@ -1,12 +1,10 @@
 ---
-  - name: Install Mysql server
+  - name: Install Mysql server and PyMySql
     ansible.builtin.apt:
-      name: mysql-server
-      
-  - name: Install PyMySql
-    ansible.builtin.apt:
-      name: python3-pymysql
-           
+      name: 
+       - mysql-server
+       - python3-pymysql
+
   - name: Change MySql configuration, add new bind-address
     ansible.builtin.template:
       src: override.cnf

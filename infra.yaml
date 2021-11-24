@@ -8,6 +8,8 @@
     roles:
       - init
       - backup
+    tags:
+      - init
       
   - name: DNS Server
     hosts: dns_servers
@@ -39,6 +41,8 @@
     roles:
       - mysql
       - mysql_backup
+    tags:
+      - m
       
   - name: Web servers
     hosts: web_servers
@@ -70,12 +74,16 @@
     become: yes
     roles:
       - node_exporter
+    tags:
+      - ne
            
   - name: DNS Server Exporter
     hosts: dns_servers
     become: yes
     roles:
       - bind_exporter  
+    tags:
+      - be
       
   - name: Database servers Exporter
     hosts: db_servers
@@ -83,13 +91,15 @@
     roles:
       - mysql_exporter 
     tags:
-      - x
+      - me
       
   - name: Nginx servers Exporter
     hosts: nginx_servers
     become: yes
     roles:
       - nginx_exporter
+    tags:
+      - nge
       
   - name: Grafana
     hosts: grafana_servers
@@ -132,6 +142,14 @@
     tags:
       - ie
       
-
-
-
+  - name: Haproxy and Keepalived and their Exporters
+    hosts: haproxy_servers
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+      - haproxy_exporter
+      - keepalived_exporter
+    tags:
+      - hk
+      

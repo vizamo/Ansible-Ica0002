@@ -1,0 +1,17 @@
+---
+  - name: Install Prometheus Haproxy Exporter
+    ansible.builtin.apt:
+      name: prometheus-haproxy-exporter
+    
+  - name: Web external for Prometheus Haproxy Exporter
+    ansible.builtin.template:
+      src: prometheus-haproxy-exporter.j2
+      dest: /etc/default/prometheus-haproxy-exporter
+    notify: Restart Prometheus Haproxy Exporter
+    
+  - name: Check Prometheus Haproxy Exporter is started and enabled
+    ansible.builtin.service:
+      name: prometheus-haproxy-exporter
+      state: started
+      enabled: yes
+      

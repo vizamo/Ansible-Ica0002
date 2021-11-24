@@ -1,11 +1,9 @@
 ---
-  - name: Install Uwsgi
+  - name: Install Uwsgi and python plugin for it
     ansible.builtin.apt:
-      name: uwsgi
-      
-  - name: Install Uwsgi python plugin
-    ansible.builtin.apt:
-      name: uwsgi-plugin-python3
+      name: 
+       - uwsgi
+       - uwsgi-plugin-python3
 
   - name: Check Uwsgi is started and enabled
     ansible.builtin.service:

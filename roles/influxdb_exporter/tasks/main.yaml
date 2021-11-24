@@ -4,8 +4,6 @@
       url: "https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64"
       dest: /usr/local/bin/prometheus-influxdb-stats-exporter
       mode: 0755
-    notify: 
-      - Restart Influxdb Exporter
 
   - name: Add Influxdb Exporter service
     ansible.builtin.template:
@@ -13,7 +11,6 @@
       dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
       mode: 0755
     notify: 
-      - Restart Influxdb Exporter
       - Reload systemd
 
   - name: Check Influxdb Exporter is started and enabled

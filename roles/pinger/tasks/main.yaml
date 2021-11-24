@@ -13,9 +13,6 @@
       src: pinger.sh.j2
       dest: /usr/local/bin/pinger
       mode: 0755
-    notify: 
-      - Restart Pinger
-      - Reload systemd
 
   - name: Add pinger service
     ansible.builtin.template:

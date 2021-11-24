@@ -1,0 +1,24 @@
+---      
+  - name: Unarchive a Keepalived Exporter tar.gz
+    unarchive:
+      src: https://github.com/cafebazaar/keepalived-exporter/releases/download/v1.2.0/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+      dest: /usr/local/bin/
+      owner: root
+      mode: 0755
+      remote_src: yes
+
+  - name: Add Keepalived Exporter service
+    ansible.builtin.template:
+      src: keepalived-exporter.j2
+      dest: /etc/systemd/system/keepalived-exporter.service
+      owner: root
+      mode: 0755
+    notify: 
+      - Reload systemd
+
+
+  - name: Check Keepalived Exporter is started and enabled
+    ansible.builtin.service:
+      name: keepalived-exporter
+      state: started
+      enabled: yes

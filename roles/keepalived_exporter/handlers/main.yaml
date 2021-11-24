@@ -1,11 +1,11 @@
 ---
   - name: Reload systemd
     ansible.builtin.systemd:
-      name: pinger
+      name: keepalived-exporter
       state: restarted
       daemon_reload: yes   
 
-  - name: Restart Pinger
+  - name: Restart Keepalived Exporter
     ansible.builtin.service:
-      name: pinger
+      name: keepalived-exporter
       state: restarted

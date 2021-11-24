@@ -2,3 +2,4 @@
 nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor -%}
 search {{ dns_startup_name }}
+
