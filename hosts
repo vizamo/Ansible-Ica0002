@@ -1,5 +1,5 @@
-vizamo-1 ansible_port=6622
-vizamo-2 ansible_port=4922
+vizamo-1 ansible_port=11222
+vizamo-2 ansible_port=3722
 
 [all:vars]
 ansible_host=193.40.156.86
@@ -9,8 +9,15 @@ ansible_ssh_user=ubuntu
 vizamo-1
 vizamo-2
 
-[dns_servers]
+[dns_servers:children]
+dns_master
+dns_slave
+
+[dns_master]
 vizamo-2
+
+[dns_slave]
+vizamo-1
 
 [web_servers]
 vizamo-1

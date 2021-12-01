@@ -13,6 +13,7 @@
       
   - name: DNS Server
     hosts: dns_servers
+    gather_facts: yes
     become: yes
     roles:
       - bind

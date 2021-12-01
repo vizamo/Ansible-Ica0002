@@ -1,4 +1,17 @@
 zone "{{ dns_startup_name }}" {
+{% if inventory_hostname in groups['dns_master'] %}
 	type primary;
+	allow-update {
+	  key dns_update_key;
+	};
+{% else %}
+	type secondary;
+	masters { 
+{% for vm in groups['dns_master'] -%}
+	{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
+{% endfor -%}
+	 };
+{% endif %}
 	file "{{  dns_startup_db_file }}";
+
 };

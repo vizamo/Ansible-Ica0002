@@ -49,5 +49,17 @@ server {
 	}	
 {% endif %}
 
+{% if inventory_hostname in groups['haproxy_servers'] %}
+		location /haproxy-metrics {
+		proxy_pass http://localhost:9101/metrics;
+	}	
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy_servers'] %}
+		location /keepalived-metrics {
+		proxy_pass http://localhost:9165/metrics;
+	}	
+{% endif %}
+
 }
 
