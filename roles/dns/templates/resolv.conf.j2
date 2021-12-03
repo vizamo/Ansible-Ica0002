@@ -1,5 +1,14 @@
 search {{ dns_startup_name }}
+<<<<<<< HEAD
 {% for vm in groups['dns_servers'] -%}
 nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor -%}
+=======
+{% for vm in groups['dns_master'] -%}
+nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+{% endfor -%}
+{% for vm in groups['dns_slave'] -%}
+nameserver {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+{% endfor -%}
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 

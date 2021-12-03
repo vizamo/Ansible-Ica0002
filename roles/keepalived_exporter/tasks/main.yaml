@@ -16,6 +16,10 @@
     notify: 
       - Reload systemd
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
   - name: Check Keepalived Exporter is started and enabled
     ansible.builtin.service:
       name: keepalived-exporter

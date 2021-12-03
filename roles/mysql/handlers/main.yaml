@@ -16,7 +16,11 @@
    - name: Reset MySQL replica
      community.mysql.mysql_replication:
        mode: "{{ item }}"
+<<<<<<< HEAD
        primary_host: "mysqL_master"
+=======
+       primary_host: "{{ mysql_source_host }}"
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
        primary_user: "{{ mysql_replication_user }}"
        primary_password: "{{ mysql_replication_password }}"
        login_unix_socket: /var/run/mysqld/mysqld.sock
@@ -26,5 +30,8 @@
        - resetreplica
        - startreplica
      when: inventory_hostname != mysql_source_host
+<<<<<<< HEAD
      no_log: true
+=======
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
        

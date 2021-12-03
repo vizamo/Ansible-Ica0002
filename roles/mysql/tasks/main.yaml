@@ -29,7 +29,10 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "{{ mysql_database }}.*:ALL"
+<<<<<<< HEAD
     no_log: true
+=======
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
                 
   - name: Create MySql replication user
     community.mysql.mysql_user:
@@ -38,8 +41,12 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "*.*:REPLICATION SLAVE"
+<<<<<<< HEAD
     no_log: true
     
+=======
+      
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
   - name: run handlers now
     meta: flush_handlers
               

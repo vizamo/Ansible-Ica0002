@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 vizamo-1 ansible_port=6822
 vizamo-2 ansible_port=17422
+=======
+vizamo-1 ansible_port=11222
+vizamo-2 ansible_port=3722
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 
 [all:vars]
 ansible_host=193.40.156.86

@@ -43,6 +43,7 @@ dns_nsupdate_key: !vault |
           3138653432333165320a356361313533343165366633343736323135633334386266303538623730
           36626263653838666230613731386365616365336135663532313362373630613735656632333235
           3538316238626230613737653939353664396235313239386230
+<<<<<<< HEAD
 
 mysql_database: agama
 mysql_user: agama
@@ -52,6 +53,19 @@ mysql_bind_addr: 0.0.0.0
 agama_port: 8001
 mysql_source_host: "{{ groups['db_servers'][1] }}"
 
+=======
+mysql_database: agama
+mysql_user: agama
+mysql_bind_addr: 0.0.0.0
+mysql_source_host: vizamo-2
+mysql_replication_user: replication
+mysql_node_exproter_user: exporter
+route: 
+  - 1.1.1.1
+  - 8.8.8.8
+  - 9.9.9.9
+  - 9.9.9.10
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 dns_startup_name: rlt.vizamo
 dns_startup_user: vitali
 dns_startup_db_file: db.rlt
@@ -59,6 +73,7 @@ access_networks:
   - 192.168.42.0/24
   - 127.0.0.0/8
   - 172.17.0.0/16
+<<<<<<< HEAD
 route: 
   - 1.1.1.1
   - 8.8.8.8
@@ -83,13 +98,29 @@ dns_cname_records:
 grafana_user: admin
 grafana_port: 3001
 
+=======
+grafana_user: admin
+backup_server: 192.168.42.156
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 backup_user: backup
 backup_server: 192.168.42.156
 backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
+node_id: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}"
+grafana_port: 3001
+agama_port: 8001
+keepalived_master: vizamo-1
 
+dns_a_records:
+   backup: 192.168.42.156
+
+<<<<<<< HEAD
 node_id: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}"
 host: vizamo
 
 keepalived_master: "{{ groups['haproxy_servers'][0] }}"
 
 
+=======
+dns_cname_records:
+  grafana: "{{ groups['grafana'][0] }}"
+>>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
