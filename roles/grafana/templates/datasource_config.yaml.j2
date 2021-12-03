@@ -12,9 +12,7 @@ datasources:
 #   # <int> org id. will default to orgId 1 if not specified
    orgId: 1
 #   # <string> url
-{% for vm in groups['prometheus_servers'] %}
-   url: http://{{ vm }}:9090/prometheus
-{% endfor %}
+   url: http://prometheus:9090/prometheus
 #   # <string> database password, if used
    password:
 #   # <string> database user, if used
@@ -32,9 +30,8 @@ datasources:
    type: influxdb
    access: proxy
    orgId: 1
-{% for vm in groups['influxdb_servers'] %}
-   url: http://{{ vm }}:8086
-{% endfor %}
+   url: http://infuxdb:8086
+
    password:
    user:
    database: latency
@@ -46,9 +43,7 @@ datasources:
    type: influxdb
    access: proxy
    orgId: 1
-{% for vm in groups['influxdb_servers'] %}
-   url: http://{{ vm }}:8086
-{% endfor %}
+   url: http://influxdb:8086
    password:
    user:
    database: telegraf
@@ -56,4 +51,3 @@ datasources:
    version: 1
    editable: false
     
-

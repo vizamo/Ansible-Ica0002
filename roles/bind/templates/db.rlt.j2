@@ -1,7 +1,7 @@
 $TTL	604800
-{% for vm in groups['dns_servers'] -%}
+{% for vm in groups['dns_master'] -%}
 {{ dns_startup_name }}.	IN	SOA	{{ vm }}.{{ dns_startup_name }}. {{ dns_startup_user }}.{{ dns_startup_name }}. (
-			      2		; Serial
+			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
@@ -11,8 +11,7 @@ $TTL	604800
 {% for vm in groups['dns_servers'] -%}
 {{ dns_startup_name }}.	IN	NS	{{ vm }}
 {% endfor -%}
-{% for vm in groups['all'] -%}
+{% for vm in groups['dns_servers'] -%}
 {{ vm }}	IN	A	{{ hostvars[vm]['ansible_default_ipv4']['address'] }}
 {% endfor -%}
-backup	IN	A	{{ backup_server }}
 

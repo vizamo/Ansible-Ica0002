@@ -1,16 +1,14 @@
 ---
-  - name: Install Mysql server
+  - name: Install Mysql server and PyMySql
     ansible.builtin.apt:
-      name: mysql-server
-      
-  - name: Install PyMySql
-    ansible.builtin.apt:
-      name: python3-pymysql
-           
+      name: 
+       - mysql-server
+       - python3-pymysql
+
   - name: Change MySql configuration, add new bind-address
     ansible.builtin.template:
       src: override.cnf
-      dest: /etc/mysql/mysql.conf.d/
+      dest: /etc/mysql/mysql.conf.d/override.cnf
     notify: Restart MySql   
 
   - name: Check does Mysql server is started and enabled
@@ -31,7 +29,41 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "{{ mysql_database }}.*:ALL"
-
+    no_log: true
+                
+  - name: Create MySql replication user
+    community.mysql.mysql_user:
+      name: "{{ mysql_replication_user }}"
+      password: "{{ mysql_replication_password }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+      host: "%"
+      priv: "*.*:REPLICATION SLAVE"
+    no_log: true
+    
+  - name: run handlers now
+    meta: flush_handlers
+              
+  - name: Read only mode for slave host     
+    community.mysql.mysql_variables:
+      variable: read_only
+      value: 'ON'
+      mode: persist
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: inventory_hostname != mysql_source_host
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica
+      
+  - name: Read write mode for source host     
+    community.mysql.mysql_variables:
+      variable: read_only
+      value: 'OFF'
+      mode: persist
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    when: inventory_hostname == mysql_source_host
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica
 
       
 

@@ -1,18 +1,27 @@
-vizamo-1 ansible_port=8722
-vizamo-2 ansible_port=17722
+vizamo-1 ansible_port=6822
+vizamo-2 ansible_port=17422
 
 [all:vars]
 ansible_host=193.40.156.86
 ansible_ssh_user=ubuntu
 
 [db_servers]
+vizamo-1
 vizamo-2
 
-[dns_servers]
+[dns_servers:children]
+dns_master
+dns_slave
+
+[dns_master]
 vizamo-2
+
+[dns_slave]
+vizamo-1
 
 [web_servers]
 vizamo-1
+vizamo-2
 
 [nginx_servers]
 vizamo-1
@@ -35,6 +44,14 @@ vizamo-1
 vizamo-2
 
 [backup_servers]
+vizamo-1
+vizamo-2
+
+[docker_servers]
+vizamo-1
+vizamo-2
+
+[haproxy_servers]
 vizamo-1
 vizamo-2
 

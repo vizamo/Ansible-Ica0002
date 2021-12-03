@@ -1,4 +1,5 @@
-25 1 * * 1,4,7  backup  mysqldump agama > /home/backup/mysql/agama.sql
-25 1 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/
-25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/
-
+{% if inventory_hostname != mysql_source_host -%}
+25 1 * * 1,4,7  backup  mysqldump {{ mysql_database }} > /home/backup/mysql/{{ mysql_database }}.sql
+25 1 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
+25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
+{% endif -%}

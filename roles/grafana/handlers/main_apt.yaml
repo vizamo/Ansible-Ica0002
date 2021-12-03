@@ -3,6 +3,7 @@
      shell: |
        sleep 15
        grafana-cli {{ grafana_user }} reset-admin-password {{ grafana_password }}
+     no_log: true
         
    - name: Restart Grafana
      ansible.builtin.service:

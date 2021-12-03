@@ -12,6 +12,7 @@
       password: "{{ mysql_node_exproter_password }}"
       login_unix_socket: /var/run/mysqld/mysqld.sock
       priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"
+    no_log: true
         
   - name: Config for Backup
     ansible.builtin.template:
@@ -19,6 +20,7 @@
       dest: /home/backup/.my.cnf
       owner: 'backup'
       mode: 0700
+    no_log: true
       
   - name: Config for CronTab
     ansible.builtin.template:

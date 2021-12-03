@@ -3,9 +3,9 @@ server {
 	server_name _;
 
 {% if inventory_hostname in groups['web_servers'] %}
-	location / {
-		uwsgi_pass localhost:5000;
-		include uwsgi_params;
+		location / {
+		proxy_pass http://localhost:8001;
+		proxy_set_header Host            $http_host;
 	}	
 {% endif %}	
 
@@ -39,13 +39,25 @@ server {
 
 {% if inventory_hostname in groups['grafana_servers'] %}
 		location /grafana {
-		proxy_pass http://localhost:3000;
+		proxy_pass http://localhost:{{ grafana_port }};
 	}	
 {% endif %}
 
 {% if inventory_hostname in groups['influxdb_servers'] %}
 		location /influxdb-metrics {
 		proxy_pass http://localhost:9424/metrics;
+	}	
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy_servers'] %}
+		location /haproxy-metrics {
+		proxy_pass http://localhost:9101/metrics;
+	}	
+{% endif %}
+
+{% if inventory_hostname in groups['haproxy_servers'] %}
+		location /keepalived-metrics {
+		proxy_pass http://localhost:9165/metrics;
 	}	
 {% endif %}
 

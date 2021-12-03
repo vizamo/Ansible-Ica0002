@@ -1,7 +1,9 @@
 ---
   - name: Install Bind9
     ansible.builtin.apt:
-      name: bind9
+      name: 
+       - bind9
+       - python3-dnspython
           
   - name: Change Bind9 config with adding forwarders
     ansible.builtin.template:
@@ -9,18 +11,60 @@
       dest: /etc/bind/named.conf.options 
     notify: 
       - Restart Bind
+    no_log: true
     
   - name: Add information about master zone
     ansible.builtin.template:
       src: db.rlt.j2
-      dest: /var/cache/bind/db.rlt
+      dest: /var/cache/bind/{{ dns_startup_db_file }}
+      force: no
     notify: Refresh DNS Master Zone
-     
+    when: inventory_hostname in groups['dns_master']
+
+  - name: Add information about PTR records
+    ansible.builtin.template:
+      src: db.reverse.j2
+      dest: /var/cache/bind/db.reverse
+      force: no
+    notify: Refresh DNS Master Zone
+    when: inventory_hostname in groups['dns_master']
+
   - name: Change Bind9 config with adding master zone
     ansible.builtin.template:
       src: named.conf.local.j2
       dest: /etc/bind/named.conf.local 
     notify: Restart Bind  
+    
+  - name: run handlers now
+    meta: flush_handlers
+
+  - name: Add or modify rlt.vizamo A records
+    community.general.nsupdate:
+      key_name: "nsupdate.key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_nsupdate_key }}"
+      server: "localhost"
+      zone: "{{ dns_startup_name }}"
+      record: "{{ item.key }}"
+      type: "A"
+      value: "{{ item.value }}"
+    loop: "{{ dns_a_records | dict2items }}"
+    run_once: True
+    no_log: true
+
+  - name: Add or modify rlt.vizamo CNAME records
+    community.general.nsupdate:
+      key_name: "nsupdate.key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_nsupdate_key }}"
+      server: "localhost"
+      zone: "{{ dns_startup_name }}"
+      record: "{{ item.key }}"
+      type: "CNAME"
+      value: "{{ item.value }}"
+    loop: "{{ dns_cname_records | dict2items }}"
+    run_once: True
+    no_log: true
     
   - name: Check Bind9 is started and enabled
     ansible.builtin.service:

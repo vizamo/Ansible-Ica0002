@@ -1,4 +1,41 @@
 zone "{{ dns_startup_name }}" {
-	type primary;
-	file "{{  dns_startup_db_file }}";
+{% if inventory_hostname in groups['dns_master'] %}
+	type master;
+	allow-update { key nsupdate.key;};
+	allow-transfer { 127.0.0.1; key transfer.key;};
+{% else %}
+	type slave;
+	masters { 
+{% for vm in groups['dns_master'] -%}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }}; 
+{% endfor -%}
+	 };
+{% endif %}
+	file "{{ dns_startup_db_file }}";
+
 };
+
+zone "42.168.192.in-addr.arpa" {
+{% if inventory_hostname in groups['dns_master'] %}
+	type master;
+	allow-update { key nsupdate.key ;};
+	allow-transfer { 127.0.0.1; key transfer.key ;};
+{% else %}
+	type slave;
+	masters { 
+{% for vm in groups['dns_master'] -%}
+        {{ hostvars[vm]['ansible_default_ipv4']['address'] }}; 
+{% endfor -%}
+	 };
+{% endif %}
+	file "db.reverse";
+
+};
+
+{% if inventory_hostname not in groups['dns_master'] %}
+{% for vm in groups['dns_master'] -%}
+server {{ hostvars[vm]['ansible_default_ipv4']['address'] }} {
+    keys { transfer.key ;};
+};
+{% endfor -%}
+{% endif %}

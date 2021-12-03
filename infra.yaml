@@ -8,6 +8,32 @@
     roles:
       - init
       - backup
+    tags:
+      - init
+      
+  - name: DNS Server
+    hosts: dns_servers
+    become: yes
+    roles:
+      - bind
+    tags:
+      - b
+
+  - name: DNS Conf Setup
+    hosts: all
+    become: yes
+    roles:
+      - dns
+    tags:
+      - dns
+      
+  - name: Docker
+    hosts: docker_servers
+    become: yes
+    roles:
+      - docker
+    tags:
+      - d
       
   - name: Database servers
     hosts: db_servers
@@ -15,13 +41,17 @@
     roles:
       - mysql
       - mysql_backup
+    tags:
+      - m
       
   - name: Web servers
     hosts: web_servers
     become: yes
     roles:
       - agama
-      - uwsgi
+#      - uwsgi
+    tags:
+      - a
 
   - name: Nginx servers
     hosts: nginx_servers
@@ -30,18 +60,6 @@
       - nginx
     tags:
       - n
-
-  - name: DNS Server
-    hosts: dns_servers
-    become: yes
-    roles:
-      - bind
-
-  - name: DNS Conf Setup
-    hosts: all
-    become: yes
-    roles:
-      - dns
  
   - name: Prometheus
     hosts: prometheus_servers
@@ -56,24 +74,32 @@
     become: yes
     roles:
       - node_exporter
+    tags:
+      - ne
            
   - name: DNS Server Exporter
     hosts: dns_servers
     become: yes
     roles:
       - bind_exporter  
+    tags:
+      - be
       
   - name: Database servers Exporter
     hosts: db_servers
     become: yes
     roles:
       - mysql_exporter 
+    tags:
+      - me
       
   - name: Nginx servers Exporter
     hosts: nginx_servers
     become: yes
     roles:
       - nginx_exporter
+    tags:
+      - nge
       
   - name: Grafana
     hosts: grafana_servers
@@ -115,5 +141,15 @@
       - influxdb_exporter
     tags:
       - ie
-
-
+      
+  - name: Haproxy and Keepalived and their Exporters
+    hosts: haproxy_servers
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+      - haproxy_exporter
+      - keepalived_exporter
+    tags:
+      - hk
+      

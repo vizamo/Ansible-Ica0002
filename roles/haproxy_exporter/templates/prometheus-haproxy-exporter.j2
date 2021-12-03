@@ -1,0 +1,6 @@
+ARGS="
+{% for vm in groups['prometheus_servers'] %}
+--haproxy.scrape-uri=http://{{ hostvars[keepalived_master]['ansible_host'] }}:{{ hostvars[vm]['ansible_port']+66}}/monitor;csv
+{% endfor %}
+"
+
