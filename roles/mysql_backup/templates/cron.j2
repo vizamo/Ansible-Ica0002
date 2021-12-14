@@ -1,5 +1,6 @@
 {% if inventory_hostname != mysql_master -%}
-15 0 * * 2,4,7  backup  mysqldump {{ mysql_database }} > /home/backup/mysql/{{ mysql_database }}.sql
-15 0 * * 2  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
+15 0 * * 1,4,7  backup  mysqldump {{ mysql_database }} > /home/backup/mysql/{{ mysql_database }}.sql
+15 0 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
 15 0 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
 {% endif -%}
+

@@ -4,7 +4,7 @@
       path: /home/backup/influxdb
       state: directory
       owner: 'backup'
-      mode: 0755
+      mode: 0700
       
   - name: Config for CronTab
     ansible.builtin.template:

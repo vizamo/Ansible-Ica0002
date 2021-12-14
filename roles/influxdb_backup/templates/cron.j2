@@ -1,3 +1,4 @@
-15 0 * * 2,4,7  backup  rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
-15 0 * * 2  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
+15 0 * * 1,4,7  backup  rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
+15 0 * * 1  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
 15 0 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
+

@@ -18,7 +18,7 @@
     ansible.builtin.template:
       src: pinger.service.j2
       dest: /etc/systemd/system/pinger.service
-      mode: 0755
+      mode: 0744
     notify: Reload systemd
       
   - name: Create a pinger directory if it does not exist
@@ -31,7 +31,7 @@
     ansible.builtin.template:
       src: pinger.conf.j2
       dest: /etc/pinger/pinger.conf
-      mode: 0755
+      mode: 0744
     notify: Restart Pinger
     
   - name: Check Pinger is started and enabled

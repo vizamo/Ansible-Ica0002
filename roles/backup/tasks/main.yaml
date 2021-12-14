@@ -12,7 +12,7 @@
       path: /home/backup/restore
       state: directory
       owner: 'backup'
-      mode: 0755
+      mode: 0700
       
   - name: Install Duplicity
     ansible.builtin.apt:
@@ -24,5 +24,4 @@
       dest: /home/backup/.ssh/known_hosts
       owner: 'backup'
       mode: 0755
-    no_log: true
            

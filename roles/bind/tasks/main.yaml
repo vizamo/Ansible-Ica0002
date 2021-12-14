@@ -50,7 +50,7 @@
       value: "{{ item.value }}"
     loop: "{{ dns_a_records | dict2items }}"
     run_once: True
-
+    no_log: true
 
   - name: Add or modify rlt.vizamo CNAME records
     community.general.nsupdate:

@@ -16,7 +16,7 @@
    - name: Reset MySQL replica
      community.mysql.mysql_replication:
        mode: "{{ item }}"
-       primary_host: "mysql-master"
+       primary_host: "mysql_master"
        primary_user: "{{ mysql_replication_user }}"
        primary_password: "{{ mysql_replication_password }}"
        login_unix_socket: /var/run/mysqld/mysqld.sock

@@ -19,7 +19,7 @@
       - { src: 'main.json', dest: '/opt/grafana/provisioning/dashboards/cluster.json' }
       - { src: 'mysql.json', dest: '/opt/grafana/provisioning/dashboards/mysql.json' }
       - { src: 'syslog.json', dest: '/opt/grafana/provisioning/dashboards/syslog.json' }
-    no_log: true
+    notify: Restart Docker Container
     
   - name: Grafana docker container
     community.docker.docker_container:
@@ -29,6 +29,7 @@
       published_ports: "{{ grafana_port }}:3000"
       restart_policy: always
       volumes: /opt/grafana:/etc/grafana
+      state: started
 
 
 

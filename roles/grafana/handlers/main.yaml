@@ -1,0 +1,12 @@
+---     
+  - name: Restart Docker Container
+    community.docker.docker_container:
+      name: grafana
+      image: grafana/grafana
+      container_default_behavior: no_defaults
+      published_ports: "{{ grafana_port }}:3000"
+      restart_policy: always
+      volumes: /opt/grafana:/etc/grafana
+      state: started
+      restart: yes
+
