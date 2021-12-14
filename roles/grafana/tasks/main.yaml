@@ -20,6 +20,7 @@
       - { src: 'mysql.json', dest: '/opt/grafana/provisioning/dashboards/mysql.json' }
       - { src: 'syslog.json', dest: '/opt/grafana/provisioning/dashboards/syslog.json' }
     notify: Restart Docker Container
+    no_log: true
     
   - name: Grafana docker container
     community.docker.docker_container:
