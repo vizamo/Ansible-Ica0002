@@ -8,5 +8,5 @@
       restart_policy: always
       volumes: /opt/grafana:/etc/grafana
       state: started
-      restart: yes
+      recreate: yes
 
