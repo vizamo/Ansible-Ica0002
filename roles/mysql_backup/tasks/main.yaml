@@ -8,7 +8,7 @@
       
   - name: Create MySql DB user
     community.mysql.mysql_user:
-      name: "{{ backup_user }}"
+      name: backup
       password: "{{ mysql_node_exproter_password }}"
       login_unix_socket: /var/run/mysqld/mysqld.sock
       priv: "{{ mysql_database }}.*:LOCK TABLES,SELECT"

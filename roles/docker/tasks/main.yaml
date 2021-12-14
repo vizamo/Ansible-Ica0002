@@ -1,4 +1,24 @@
 ---
+  - name: Upload file for iptables fixes
+    ansible.builtin.template:
+      src: iptables.mangle
+      dest: /var/local/iptables.mangle
+
+  - name: Fix Iptables
+    community.general.iptables_state:
+      path: /var/local/iptables.mangle
+      state: restored
+      table: mangle
+
+  - name: Install Iptables persistent
+    ansible.builtin.apt:
+      name: iptables-persistent
+      
+  - name: Save Iptables fixes
+    ansible.builtin.template:
+      src: iptables.mangle
+      dest: /etc/iptables/rules.v4
+
   - name: Install Docker
     ansible.builtin.apt:
       name: 

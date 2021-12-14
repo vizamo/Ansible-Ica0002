@@ -5,7 +5,7 @@
        - mysql-server
        - python3-pymysql
 
-  - name: Change MySql configuration, add new bind-address
+  - name: Change MySql configuration
     ansible.builtin.template:
       src: override.cnf
       dest: /etc/mysql/mysql.conf.d/override.cnf
@@ -29,10 +29,7 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "{{ mysql_database }}.*:ALL"
-<<<<<<< HEAD
     no_log: true
-=======
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
                 
   - name: Create MySql replication user
     community.mysql.mysql_user:
@@ -41,12 +38,8 @@
       login_unix_socket: /var/run/mysqld/mysqld.sock
       host: "%"
       priv: "*.*:REPLICATION SLAVE"
-<<<<<<< HEAD
     no_log: true
     
-=======
-      
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
   - name: run handlers now
     meta: flush_handlers
               
@@ -56,10 +49,11 @@
       value: 'ON'
       mode: persist
       login_unix_socket: /var/run/mysqld/mysqld.sock
-    when: inventory_hostname != mysql_source_host
+    when: inventory_hostname != mysql_master
     notify:
       - Reset MySQL source
       - Reset MySQL replica
+
       
   - name: Read write mode for source host     
     community.mysql.mysql_variables:
@@ -67,10 +61,9 @@
       value: 'OFF'
       mode: persist
       login_unix_socket: /var/run/mysqld/mysqld.sock
-    when: inventory_hostname == mysql_source_host
+    when: inventory_hostname == mysql_master
     notify:
       - Reset MySQL source
       - Reset MySQL replica
 
-      
 

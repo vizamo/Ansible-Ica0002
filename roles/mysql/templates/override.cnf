@@ -1,10 +1,7 @@
 [mysqld]
-bind-address = {{ mysql_bind_addr }}
+bind-address = 0.0.0.0
 log-bin = /var/log/mysql/mysql-bin.log
 relay-log = /var/log/mysql/mysql-relay.log
 replicate-do-db = {{ mysql_database }}
-server-id = {{ node_id }}
-<<<<<<< HEAD
+server-id = {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'].split('.')[-1] }}
 
-=======
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6

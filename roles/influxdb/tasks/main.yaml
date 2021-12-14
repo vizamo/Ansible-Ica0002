@@ -13,6 +13,12 @@
         - influxdb
         - telegraf
 
+  - name: Config for InfluxDB
+    ansible.builtin.template:
+      src: influxdb.j2
+      dest: /etc/influxdb/influxdb.conf
+    notify: Restart InfluxDB
+
   - name: Check Influxdb is started and enabled
     ansible.builtin.service:
       name: influxdb

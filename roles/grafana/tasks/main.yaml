@@ -1,5 +1,5 @@
 ---
-  - name: Create a grafana dir
+  - name: Create a grafana dirs
     ansible.builtin.file:
       recurse: yes 
       state: directory
@@ -19,7 +19,7 @@
       - { src: 'main.json', dest: '/opt/grafana/provisioning/dashboards/cluster.json' }
       - { src: 'mysql.json', dest: '/opt/grafana/provisioning/dashboards/mysql.json' }
       - { src: 'syslog.json', dest: '/opt/grafana/provisioning/dashboards/syslog.json' }
-    no_log: yes
+    no_log: true
     
   - name: Grafana docker container
     community.docker.docker_container:
@@ -27,6 +27,7 @@
       image: grafana/grafana
       container_default_behavior: no_defaults
       published_ports: "{{ grafana_port }}:3000"
+      restart_policy: always
       volumes: /opt/grafana:/etc/grafana
 
 

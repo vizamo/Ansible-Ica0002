@@ -13,23 +13,19 @@
       
   - name: DNS Server
     hosts: dns_servers
-<<<<<<< HEAD
-=======
-    gather_facts: yes
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
     become: yes
     roles:
       - bind
     tags:
-      - b
+      - bind
 
-  - name: DNS Conf Setup
+  - name: Network etc/resolv.conf nameservers
     hosts: all
     become: yes
     roles:
       - dns
     tags:
-      - dns
+      - network
       
   - name: Docker
     hosts: docker_servers
@@ -37,7 +33,7 @@
     roles:
       - docker
     tags:
-      - d
+      - docker
       
   - name: Database servers
     hosts: db_servers
@@ -46,16 +42,15 @@
       - mysql
       - mysql_backup
     tags:
-      - m
+      - mysql
       
   - name: Web servers
     hosts: web_servers
     become: yes
     roles:
       - agama
-#      - uwsgi
     tags:
-      - a
+      - web
 
   - name: Nginx servers
     hosts: nginx_servers
@@ -63,7 +58,7 @@
     roles:
       - nginx
     tags:
-      - n
+      - nginx
  
   - name: Prometheus
     hosts: prometheus_servers
@@ -71,8 +66,49 @@
     roles:
       - prometheus
     tags:
-      - p
- 
+      - prometheus
+            
+  - name: Influxdb
+    hosts: influxdb_servers
+    become: yes
+    roles:
+      - influxdb
+      - influxdb_backup
+    tags:
+      - influxdb
+      
+  - name: Pinger
+    hosts: pinger_servers
+    become: yes
+    roles:
+      - pinger
+    tags:
+      - pinger
+      
+  - name: Rsyslog
+    hosts: rsyslog_servers
+    become: yes
+    roles:
+      - rsyslog
+    tags:
+      - rsyslog
+      
+  - name: Haproxy
+    hosts: keepalived_servers
+    become: yes
+    roles:
+      - haproxy
+    tags:
+      - haproxy
+      
+  - name: Keepalived
+    hosts: keepalived_servers
+    become: yes
+    roles:
+      - keepalived
+    tags:
+      - keepalived
+      
   - name: Node Exporter
     hosts: all
     become: yes
@@ -81,7 +117,7 @@
     tags:
       - ne
            
-  - name: DNS Server Exporter
+  - name: Bind Exporter
     hosts: dns_servers
     become: yes
     roles:
@@ -89,7 +125,7 @@
     tags:
       - be
       
-  - name: Database servers Exporter
+  - name: MySql Exporter
     hosts: db_servers
     become: yes
     roles:
@@ -97,46 +133,13 @@
     tags:
       - me
       
-  - name: Nginx servers Exporter
+  - name: Nginx Exporter
     hosts: nginx_servers
     become: yes
     roles:
       - nginx_exporter
     tags:
-      - nge
-      
-  - name: Grafana
-    hosts: grafana_servers
-    become: yes
-    roles:
-      - grafana
-    tags:
-      - g
-      
-  - name: Influxdb
-    hosts: influxdb_servers
-    become: yes
-    roles:
-      - influxdb
-      - influxdb_backup
-    tags:
-      - i
-      
-  - name: Pinger
-    hosts: pinger_servers
-    become: yes
-    roles:
-      - pinger
-    tags:
-      - pi
-      
-  - name: Rsyslog
-    hosts: rsyslog_servers
-    become: yes
-    roles:
-      - rsyslog
-    tags:
-      - rl
+      - xe
       
   - name: Influxdb Exporter
     hosts: influxdb_servers
@@ -146,14 +149,27 @@
     tags:
       - ie
       
-  - name: Haproxy and Keepalived and their Exporters
-    hosts: haproxy_servers
+  - name: Haproxy Exporter
+    hosts: keepalived_servers
     become: yes
     roles:
-      - keepalived
-      - haproxy
       - haproxy_exporter
+    tags:
+      - he     
+      
+  - name: Keepalived Exporter
+    hosts: keepalived_servers
+    become: yes
+    roles:
       - keepalived_exporter
     tags:
-      - hk
+      - ke
+      
+  - name: Grafana
+    hosts: grafana_servers
+    become: yes
+    roles:
+      - grafana
+    tags:
+      - grafana
       

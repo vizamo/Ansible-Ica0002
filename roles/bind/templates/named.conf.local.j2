@@ -1,6 +1,5 @@
 zone "{{ dns_startup_name }}" {
 {% if inventory_hostname in groups['dns_master'] %}
-<<<<<<< HEAD
 	type master;
 	allow-update { key nsupdate.key;};
 	allow-transfer { 127.0.0.1; key transfer.key;};
@@ -13,21 +12,6 @@ zone "{{ dns_startup_name }}" {
 	 };
 {% endif %}
 	file "{{ dns_startup_db_file }}";
-=======
-	type primary;
-	allow-update {
-	  key dns_update_key;
-	};
-{% else %}
-	type secondary;
-	masters { 
-{% for vm in groups['dns_master'] -%}
-	{{ hostvars[vm]['ansible_default_ipv4']['address'] }};
-{% endfor -%}
-	 };
-{% endif %}
-	file "{{  dns_startup_db_file }}";
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 
 };
 

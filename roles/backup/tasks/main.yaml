@@ -23,7 +23,6 @@
       src: known_hosts.j2
       dest: /home/backup/.ssh/known_hosts
       owner: 'backup'
-      mode: 0777
+      mode: 0755
     no_log: true
-      
-      
+           

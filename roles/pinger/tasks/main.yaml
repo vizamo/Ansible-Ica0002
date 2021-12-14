@@ -20,14 +20,8 @@
       dest: /etc/systemd/system/pinger.service
       mode: 0755
     notify: Reload systemd
-
-  - name: Check Pinger is started and enabled
-    ansible.builtin.service:
-      name: pinger
-      state: started
-      enabled: yes
       
-  - name: Create a dashboards directory if it does not exist
+  - name: Create a pinger directory if it does not exist
     ansible.builtin.file:
       path: /etc/pinger/
       state: directory
@@ -39,4 +33,10 @@
       dest: /etc/pinger/pinger.conf
       mode: 0755
     notify: Restart Pinger
+    
+  - name: Check Pinger is started and enabled
+    ansible.builtin.service:
+      name: pinger
+      state: started
+      enabled: yes
 

@@ -3,8 +3,8 @@
     ansible.builtin.file:
       path: /opt/agama
       state: directory
-      
-  - name: Download file
+          
+  - name: Download agama image file
     ansible.builtin.get_url:
       url: https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile
       dest: /opt/agama/Dockerfile
@@ -16,16 +16,13 @@
       build:
         path: /opt/agama
         
-  - name: Agama docker container
+  - name: Create Agama docker container
     community.docker.docker_container:
       name: agama
       image: agama
       container_default_behavior: no_defaults
       published_ports: "{{ agama_port }}:8000"
+      restart_policy: always
       env:
-<<<<<<< HEAD
-        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@mysql_master/{{ mysql_database }}
+        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_master }}/{{ mysql_database }}
     no_log: true
-=======
-        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_source_host }}/{{ mysql_database }}
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6

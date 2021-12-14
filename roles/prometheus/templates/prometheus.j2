@@ -1,6 +1,6 @@
 ARGS="
 {% for vm in groups['prometheus_servers'] %}
---web.external-url=http://{{ hostvars[vm]['ansible_host'] }}:{{ hostvars[vm]['ansible_port']+58}}/prometheus
+--web.external-url=http://prometheus:{{ hostvars[vm]['ansible_port']+58}}/prometheus
 {% endfor %}
 "
 

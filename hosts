@@ -1,42 +1,51 @@
-<<<<<<< HEAD
-vizamo-1 ansible_port=6822
-vizamo-2 ansible_port=17422
-=======
-vizamo-1 ansible_port=11222
-vizamo-2 ansible_port=3722
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
+vizamo-1 ansible_port=9122
+vizamo-2 ansible_port=6122
+vizamo-3 ansible_port=18822
 
 [all:vars]
 ansible_host=193.40.156.86
 ansible_ssh_user=ubuntu
 
-[db_servers]
-vizamo-1
+[db_servers:children]
+db_master_server
+db_slave_servers
+
+[db_master_server]
 vizamo-2
+
+[db_slave_servers]
+vizamo-3
 
 [dns_servers:children]
 dns_master
 dns_slave
 
 [dns_master]
-vizamo-2
+vizamo-1
 
 [dns_slave]
-vizamo-1
+vizamo-2
+vizamo-3
 
 [web_servers]
+vizamo-2
+vizamo-3
+
+[docker_servers]
 vizamo-1
 vizamo-2
+vizamo-3
 
 [nginx_servers]
 vizamo-1
 vizamo-2
+vizamo-3
 
 [prometheus_servers]
 vizamo-1
 
 [grafana_servers]
-vizamo-2
+vizamo-1
 
 [influxdb_servers]
 vizamo-1
@@ -47,16 +56,19 @@ vizamo-1
 [rsyslog_servers]
 vizamo-1
 vizamo-2
+vizamo-3
 
 [backup_servers]
 vizamo-1
 vizamo-2
+vizamo-3
 
-[docker_servers]
-vizamo-1
+[keepalived_servers:children]
+keepalived_master_server
+keepalived_slave_servers
+
+[keepalived_master_server]
 vizamo-2
 
-[haproxy_servers]
-vizamo-1
-vizamo-2
-
+[keepalived_slave_servers]
+vizamo-3

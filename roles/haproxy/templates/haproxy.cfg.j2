@@ -29,13 +29,7 @@ listen agama
     stats uri /monitor
     stats refresh 5s
     bind :88    
-<<<<<<< HEAD
-{% for srv in groups['haproxy_servers'] %}
+{% for srv in groups['keepalived_servers'] %}
     server agama_{{ (srv | split('-'))[1] }} {{ srv }}:{{ agama_port }} check
 {% endfor %}
-=======
-    {% for srv in groups['haproxy_servers'] %}
-    server agama_{{ (srv | split('-'))[1] }} {{ srv }}:{{ agama_port }} check
-    {% endfor %}
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 

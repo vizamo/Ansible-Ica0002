@@ -21,20 +21,12 @@ statistics-channels {
   inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
 };
 
-<<<<<<< HEAD
 key "transfer.key" {
-=======
-key "dns_transfer_key" {
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 	algorithm hmac-sha256;
 	secret "{{ dns_transfer_key }}";
 };
 
-<<<<<<< HEAD
 key "nsupdate.key" {
-=======
-key "dns_nsupdate_key" {
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
 	algorithm hmac-sha256;
 	secret "{{ dns_nsupdate_key }}";
 };

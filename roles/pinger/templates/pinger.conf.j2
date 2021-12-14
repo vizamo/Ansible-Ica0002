@@ -1,6 +1,4 @@
-{% for vm in groups['pinger_servers'] -%}
-database_url=http://{{ vm }}:8086
-{% endfor -%}
+database_url=http://influxdb:8086
 database_name=latency
-targets=youtube.com,taltech.ee,facebook.com
+targets={% for service in pinger_services -%}{{ service }}{% endfor -%}
 

@@ -6,7 +6,7 @@ Backup Documentation for RLT
 - Ansible repository - must be covered all repository code.
 
   RPO
-Backup must be created on time 1:25.
+Backup must be created on time 0:15.
 Full backup is created on Monday
 Incremental backups is created on Thursday and Sunday
 RPO is 72 hours.

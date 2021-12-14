@@ -10,20 +10,14 @@
       state: directory
       owner: agama
       
-  - name: Install Python
-    ansible.builtin.apt:
-      name: python3
-      
-  - name: Install Flask
-    ansible.builtin.apt:
-      name: python3-flask
-      
-  - name: Install Flask-SqlAlchemy and MySql
+  - name: Install Python with Flask, Flask-SqlAlchemy and PyMySql
     ansible.builtin.apt:
       name: 
+       - python3
+       - python3-flask
        - python3-flask-sqlalchemy
        - python3-pymysql
-           
+          
   - name: Install Agama
     ansible.builtin.get_url:
       url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py

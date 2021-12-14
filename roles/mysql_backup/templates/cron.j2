@@ -1,11 +1,5 @@
-{% if inventory_hostname != mysql_source_host -%}
-<<<<<<< HEAD
-25 1 * * 1,4,7  backup  mysqldump {{ mysql_database }} > /home/backup/mysql/{{ mysql_database }}.sql
-25 1 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
-25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
-=======
-25 1 * * 1,4,7  backup  mysqldump agama > /home/backup/mysql/agama.sql
-25 1 * * 1  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/mysql/
-25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/mysql/
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
+{% if inventory_hostname != mysql_master -%}
+15 0 * * 2,4,7  backup  mysqldump {{ mysql_database }} > /home/backup/mysql/{{ mysql_database }}.sql
+15 0 * * 2  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
+15 0 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/mysql/
 {% endif -%}

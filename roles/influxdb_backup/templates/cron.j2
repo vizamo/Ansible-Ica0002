@@ -1,9 +1,3 @@
-25 1 * * 1,4,7  backup  rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
-<<<<<<< HEAD
-25 1 * * 1  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
-25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
-=======
-25 1 * * 1  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/influxdb/
-25 1 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://vizamo@backup.rlt.vizamo//home/vizamo/influxdb/
->>>>>>> f2b55a81e512848205f8993d4f39d038901bb1d6
-
+15 0 * * 2,4,7  backup  rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
+15 0 * * 2  backup  duplicity --no-encryption full /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/
+15 0 * * 4,7  backup  duplicity --no-encryption incremental /home/backup/influxdb/ rsync://{{ host }}@backup.{{ dns_startup_name }}//home/{{ host }}/influxdb/

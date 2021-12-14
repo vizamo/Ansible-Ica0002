@@ -9,11 +9,7 @@ scrape_configs:
     metrics_path: /prometheus/metrics
     static_configs:
       - targets: ['localhost:9090']
-     
-  - job_name: node
-    static_configs:
-      - targets: ['localhost:9100']
-     
+          
   - job_name: linux
     static_configs:
       - targets:
@@ -24,49 +20,49 @@ scrape_configs:
   - job_name: bind9
     static_configs:
       - targets:
-{% for vm in groups['dns_servers'] %}
-        - {{ vm }}:9119
-{% endfor %}
-
-  - job_name: nginx
-    static_configs:
-      - targets:
-{% for vm in groups['nginx_servers'] %}
-        - {{ vm }}:9113
+        - ns_master:9119
+{% for num in range(groups['dns_slave']|length) %}
+        - ns{{ num + 1 }}:9119
 {% endfor %}
 
   - job_name: mysql
     static_configs:
       - targets:
-{% for vm in groups['db_servers'] %}
-        - {{ vm }}:9104
-{% endfor %}
-
-  - job_name: grafana
-    static_configs:
-      - targets:
-{% for vm in groups['grafana_servers'] %}
-        - {{ vm }}:3000
-{% endfor %}
-
-  - job_name: influxdb
-    static_configs:
-      - targets:
-{% for vm in groups['influxdb_servers'] %}
-        - {{ vm }}:9424
+        - mysql_master:9104
+{% for num in range(groups['db_slave_servers']|length) %}
+        - mysql{{ num + 1 }}:9104
 {% endfor %}
 
   - job_name: keepalived
     static_configs:
       - targets:
-{% for vm in groups['haproxy_servers'] %}
-        - {{ vm }}:9165
+        - keepalived_master:9165
+{% for num in range(groups['keepalived_slave_servers']|length) %}
+        - lb{{ num + 1 }}:9165
 {% endfor %}
 
   - job_name: haproxy
     static_configs:
       - targets:
-{% for vm in groups['haproxy_servers'] %}
-        - {{ vm }}:9101
+        - keepalived_master:9101
+{% for num in range(groups['keepalived_slave_servers']|length) %}
+        - lb{{ num + 1 }}:9101
 {% endfor %}
+
+  - job_name: nginx
+    static_configs:
+      - targets:
+{% for num in range(groups['nginx_servers']|length) %}
+        - ngnix{{ num + 1 }}:9113
+{% endfor %}
+
+  - job_name: grafana
+    static_configs:
+      - targets:
+        - grafana:{{ grafana_port }}
+
+  - job_name: influxdb
+    static_configs:
+      - targets:
+        - influxdb:9424
 
