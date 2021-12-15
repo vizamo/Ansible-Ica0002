@@ -5,3 +5,7 @@
       state: restarted
       daemon_reload: yes   
 
+  - name: Restart Keepalived Exporter
+    ansible.builtin.service:
+      name: keepalived-exporter
+      state: restarted

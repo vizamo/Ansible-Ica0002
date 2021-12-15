@@ -3,18 +3,19 @@
     ansible.builtin.template:
       src: ka_script
       dest: /home/ha88
-      mode: 0755
+      mode: 0700
+    notify: Restart Keepalived
 
   - name: Install Keepalived
     ansible.builtin.apt:
       name: keepalived
-    
+  
   - name: Replace config file
     ansible.builtin.template:
       src: keepalived.cfg.j2
       dest: /etc/keepalived/keepalived.conf
-    notify: Restart Keepalived    
-       
+    notify: Restart Keepalived 
+        
   - name: Check Keepalived is started and enabled
     ansible.builtin.service:
       name: keepalived

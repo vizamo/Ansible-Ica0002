@@ -9,8 +9,7 @@
     ansible.builtin.template:
       src: named.conf.options.j2
       dest: /etc/bind/named.conf.options 
-    notify: 
-      - Restart Bind
+    notify: Restart Bind
     no_log: true
     
   - name: Add information about master zone

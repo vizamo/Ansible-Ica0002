@@ -27,6 +27,7 @@ Restore InfluxDB data from the backup:
 		
 	Again configure the infrastructure with:
 	ansible-playbook infra.yaml 
+	(if only influxdb was broken - ansible-playbook infra.yaml -tinfluxdb)
 
 If restore is correct - see old InfluxDB logs in Grafana
 

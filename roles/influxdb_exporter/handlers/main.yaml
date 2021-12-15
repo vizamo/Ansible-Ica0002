@@ -5,3 +5,7 @@
       state: restarted
       daemon_reload: yes   
 
+  - name: Restart InfluxDB Exporter
+    ansible.builtin.service:
+      name: prometheus-influxdb-stats-exporter
+      state: restarted
